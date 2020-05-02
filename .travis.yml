@@ -9,19 +9,19 @@ script:
     - docker run -e CI=true uks/react-test npm test
 
 after_success:
-    - docker build -t uks/multi-client ./client 
-    - docker build -t uks/multi-nginx ./nginx 
-    - docker build -t uks/multi-server ./server
-    - docker build -t uks/multi-worker ./worker
+    - docker build -t agacsakal/multi-client ./client 
+    - docker build -t agacsakal/multi-nginx ./nginx 
+    - docker build -t agacsakal/multi-server ./server
+    - docker build -t agacsakal/multi-worker ./worker
     #Log in to Docker CLI
     # Gerçek şifreyi Travis içinde bu etiketlerle
     # environment içine kaydettik.
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
     # Take those images and push to Docker Hub
-    - docker push uks/multi-client 
-    - docker push uks/multi-nginx
-    - docker push uks/multi-server
-    - docker push uks/multi-worker
+    - docker push agacsakal/multi-client 
+    - docker push agacsakal/multi-nginx
+    - docker push agacsakal/multi-server
+    - docker push agacsakal/multi-worker
 
 
  

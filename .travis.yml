@@ -1,0 +1,27 @@
+sudo: required
+services:
+    - docker
+
+before_install: 
+    - docker build -t uks/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+    - docker -e CI=true uks/react-test npm test
+
+after_success:
+    - docker build -t uks/multi-client ./client 
+    - docker build -t uks/multi-nginx ./nginx 
+    - docker build -t uks/multi-server ./server
+    - docker build -t uks/multi-worker ./worker
+    #Log in to Docker CLI
+    # Gerçek şifreyi Travis içinde bu etiketlerle
+    # environment içine kaydettik.
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+    # Take those images and puch to Docker Hub
+    - docker push uks/multi-client 
+    - docker push uks/multi-nginx
+    - docker push uks/multi-server
+    - docker push uks/multi-worker
+
+
+ 

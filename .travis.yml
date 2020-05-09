@@ -13,9 +13,9 @@ after_success:
     - docker build -t agacsakal/multi-nginx ./nginx 
     - docker build -t agacsakal/multi-server ./server
     - docker build -t agacsakal/multi-worker ./worker
-    #Log in to Docker CLI
-    # Gerçek şifreyi Travis içinde bu etiketlerle
-    # environment içine kaydettik.
+    # Log in to Docker CLI
+    #   Gerçek şifreyi Travis içinde bu etiketlerle
+    #   environment içine kaydettik.
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
     # Take those images and push to Docker Hub
     - docker push agacsakal/multi-client 
